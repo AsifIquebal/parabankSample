@@ -1,15 +1,18 @@
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageObjects.applicationPages.Accounts;
+import pageObjects.applicationPages.AccountServices;
 import pageObjects.applicationPages.LoginPage;
 import pageObjects.applicationPages.RegisterPage;
 import pageObjects.base.BaseTest;
 import utility.MyUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestClass1 extends BaseTest {
     LoginPage loginPage;
-    Accounts accounts;
+    AccountServices accountServices;
 
     @BeforeMethod
     public void setUp() {
@@ -19,30 +22,35 @@ public class TestClass1 extends BaseTest {
 
     @Test
     public void loginTest() {
-        //loginPage = LaunchApplication();
         loginPage
                 .enterUserName(MyUtils.getPropertiesFile().getProperty("username"))
                 .enterPassword(MyUtils.getPropertiesFile().getProperty("password"));
-        accounts = loginPage.clickOnSignInButton();
-        Assert.assertEquals(accounts.getPageTitle(), "ParaBank | Accounts Overview");
+        accountServices = loginPage.clickOnSignInButton();
+        Assert.assertEquals(accountServices.getPageTitle(), "ParaBank | AccountServices Overview");
     }
 
     @Test
     public void checkAndCreateUser() {
         String pageTitle = loginPage.enterUserName("aut556").enterPassword("aut556").clickOnSignInButton().getPageTitle();
-        if(pageTitle.equalsIgnoreCase("ParaBank | Accounts Overview")){
+        List<String> accounts = new ArrayList<>();
+        if(pageTitle.equalsIgnoreCase("ParaBank | AccountServices Overview")){
             logger.info("User login successful");
+            accounts = accountServices.getAllAccounts();
         }else if (pageTitle.equalsIgnoreCase("ParaBank | Error")){
             logger.info("Registering user...");
             loginPage.clickOnRegisterLink().registerUser();
+            LaunchApplication();
+            accounts = loginPage.enterUserName("aut556").enterPassword("aut556").clickOnSignInButton().getAllAccounts();
         }
+        logger.info("Accounts listed: " + accounts);
+        Assert.assertTrue(accounts.size()>0,"No Accounts found");
     }
 
     @Test
-    public void test1() {
+    public void testABCase() {
         loginPage = loginPage.login("123", "123", LoginPage.class);
         System.out.println(loginPage.getInvalidLoginErrorMessage());
-        accounts = loginPage.login("aut556", "aut556", Accounts.class);
+        accountServices = loginPage.login("aut556", "aut556", AccountServices.class);
     }
 
     @Test

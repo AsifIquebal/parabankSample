@@ -2,6 +2,7 @@ package pageObjects.base;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public abstract class BasePage {
@@ -33,6 +34,7 @@ public abstract class BasePage {
 
     }
 
+    public By logOutLink = By.linkText("Log Out");
 }
 
 

@@ -42,6 +42,7 @@ public class RegisterPage extends BasePage {
         }else{
             logger.info("User Registration fails...");
         }
+        MyWrapper.click(driver(), logOutLink);
     }
 
 

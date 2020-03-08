@@ -36,11 +36,10 @@ public class LoginPage extends BasePage {
         return new RegisterPage(driver());
     }
 
-    // here decide which type to return and how
-    public Accounts clickOnSignInButton() {
+    public AccountServices clickOnSignInButton() {
         logger.info("Clicking on Sign In Button");
         MyWrapper.click(driver(), signInButton);
-        return new Accounts(driver());
+        return new AccountServices(driver());
     }
 
     public String getInvalidLoginErrorMessage() {
