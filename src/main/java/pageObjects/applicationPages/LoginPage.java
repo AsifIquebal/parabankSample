@@ -3,6 +3,7 @@ package pageObjects.applicationPages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pageObjects.base.BasePage;
+import utility.JavaScriptUtils;
 import utility.MyWrapper;
 
 import java.lang.reflect.InvocationTargetException;
@@ -39,6 +40,7 @@ public class LoginPage extends BasePage {
     public AccountServices clickOnSignInButton() {
         logger.info("Clicking on Sign In Button");
         MyWrapper.click(driver(), signInButton);
+        JavaScriptUtils.waitForDOMLoad(driver());
         return new AccountServices(driver());
     }
 

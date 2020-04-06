@@ -77,7 +77,7 @@ public class JavaScriptUtils {
     }
 
     public static void waitForDOMLoad(WebDriver driver) {
-        new WebDriverWait(driver, 30).until(wd ->((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
+        new WebDriverWait(driver, 100).until(wd ->((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
     }
     // enter keys without using sendKeys
     // jse.executeScript("document.getElementById('email').value = 'sunilrathore77@gmail.com';");

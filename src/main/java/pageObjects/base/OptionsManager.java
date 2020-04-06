@@ -33,7 +33,7 @@ public class OptionsManager {
         options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
         options.addArguments("allow-running-insecure-content");
         options.addArguments("enable-automation");
-        options.addArguments("--headless");
+        //options.addArguments("--headless");
         //options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-extensions");
         options.addArguments("--dns-prefetch-disable");
@@ -41,7 +41,7 @@ public class OptionsManager {
         options.addArguments("enable-features=NetworkServiceInProcess");
         options.addArguments("--silent");
         //options.addArguments("disable-features=NetworkService");
-        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+        options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         /*Headless on Windows, Check periodically for any modification*/
         /*If you are using chromedriver in headless mode on Linux platform the argument disable-gpu is crucial and mandatory.*/
         //options.addArguments("--headless","--disable-gpu");

@@ -30,10 +30,11 @@ public class TestClass1 extends BaseTest {
     }
 
     @Test
-    public void checkAndCreateUser() {
-        String pageTitle = loginPage.enterUserName("aut556").enterPassword("aut556").clickOnSignInButton().getPageTitle();
+    public void checkAndCreateUser() throws InterruptedException {
+        accountServices = loginPage.enterUserName("aut556").enterPassword("aut556").clickOnSignInButton();
+        String pageTitle = accountServices.getPageTitle();
         List<String> accounts = new ArrayList<>();
-        if(pageTitle.equalsIgnoreCase("ParaBank | AccountServices Overview")){
+        if(pageTitle.equalsIgnoreCase("ParaBank | Accounts Overview")){
             logger.info("User login successful");
             accounts = accountServices.getAllAccounts();
         }else if (pageTitle.equalsIgnoreCase("ParaBank | Error")){

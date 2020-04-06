@@ -103,4 +103,9 @@ public class MyWrapper {
         actions.moveToElement(driver.findElement(by)).build().perform();
         Thread.sleep(2000);
     }
+
+    public static void waitForElementVisibility(WebDriver driver, By by){
+        new WebDriverWait(driver, 45).until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
 }
