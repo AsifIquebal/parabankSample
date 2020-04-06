@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestClass1 extends BaseTest {
+
     LoginPage loginPage;
     AccountServices accountServices;
 
     @BeforeMethod
     public void setUp() {
         loginPage = LaunchApplication();
-
     }
 
     @Test
@@ -37,10 +37,12 @@ public class TestClass1 extends BaseTest {
             logger.info("User login successful");
             accounts = accountServices.getAllAccounts();
         }else if (pageTitle.equalsIgnoreCase("ParaBank | Error")){
-            logger.info("Registering user...");
             loginPage.clickOnRegisterLink().registerUser();
             LaunchApplication();
-            accounts = loginPage.enterUserName("aut556").enterPassword("aut556").clickOnSignInButton().getAllAccounts();
+            accounts = loginPage
+                    .enterUserName(MyUtils.getPropertiesFile().getProperty("username"))
+                    .enterPassword(MyUtils.getPropertiesFile().getProperty("password"))
+                    .clickOnSignInButton().getAllAccounts();
         }
         logger.info("Accounts listed: " + accounts);
         Assert.assertTrue(accounts.size()>0,"No Accounts found");

@@ -3,6 +3,7 @@ package pageObjects.applicationPages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pageObjects.base.BasePage;
+import utility.MyUtils;
 import utility.MyWrapper;
 
 public class RegisterPage extends BasePage {
@@ -25,6 +26,7 @@ public class RegisterPage extends BasePage {
     By registerButton = By.xpath("//input[@value='Register']");
 
     public void registerUser(){
+        logger.info("Registering user...");
         MyWrapper.sendKeys(driver(),firstName,"FirstName");
         MyWrapper.sendKeys(driver(),lastName,"LastName");
         MyWrapper.sendKeys(driver(),addressField,"TestAddress");
@@ -33,9 +35,9 @@ public class RegisterPage extends BasePage {
         MyWrapper.sendKeys(driver(),zipField,"12345");
         MyWrapper.sendKeys(driver(),phoneField,"1234567890");
         MyWrapper.sendKeys(driver(),ssnField,"1234567890");
-        MyWrapper.sendKeys(driver(),userNameField,"aut556");
-        MyWrapper.sendKeys(driver(),passwordField,"aut556");
-        MyWrapper.sendKeys(driver(),confirmField,"aut556");
+        MyWrapper.sendKeys(driver(),userNameField, MyUtils.getPropertiesFile().getProperty("username"));
+        MyWrapper.sendKeys(driver(),passwordField,MyUtils.getPropertiesFile().getProperty("password"));
+        MyWrapper.sendKeys(driver(),confirmField,MyUtils.getPropertiesFile().getProperty("password"));
         MyWrapper.click(driver(),registerButton);
         if(getPageTitle().equalsIgnoreCase("ParaBank | Customer Created")){
             logger.info("User Registered...");
