@@ -33,6 +33,10 @@ public class OptionsManager {
         options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
         options.addArguments("allow-running-insecure-content");
         options.addArguments("enable-automation");
+
+        if(System.getProperty("headless").equalsIgnoreCase("yes")){
+            options.addArguments("--headless");
+        }
         //options.addArguments("--headless");
         //options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-extensions");
