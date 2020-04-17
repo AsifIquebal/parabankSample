@@ -57,6 +57,7 @@ public abstract class BaseTest {
                 int exitCode = process.waitFor();
                 assert exitCode == 0;
                 System.setProperty("webdriver.chrome.driver", pathToChromeDriver);
+                System.setProperty("webdriver.chrome.silentOutput","true");
             } else {
                 logger.info("On Windows, getting Chromedriver file");
                 System.setProperty("webdriver.chrome.driver", Constants.CHROME_DRIVER_PATH_WINDOWS);
