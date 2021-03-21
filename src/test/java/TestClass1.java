@@ -56,17 +56,4 @@ public class TestClass1 extends BaseTest {
         accountServices = loginPage.login("aut556", "aut556", AccountServices.class);
     }
 
-    @Test
-    public void test2() {
-        LoginPage loginPage = new LoginPage(driver());
-        RegisterPage registerPage = loginPage.clickOnRegisterLink();
-        registerPage.registerUser();
-    }
-
-
-    /*@AfterTest
-    public void tearDown(){
-
-    }*/
-
 }

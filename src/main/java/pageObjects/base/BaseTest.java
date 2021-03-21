@@ -11,10 +11,7 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 import pageObjects.automationPracticePageObjects.LoginPage;
 
 import java.io.BufferedReader;
@@ -142,13 +139,18 @@ public abstract class BaseTest {
         return new LoginPage(driver());
     }
 
-    @AfterClass
+    /*@AfterClass
     public void tearDown() {
         if (driver != null) {
             driver.quit();
         }
+    }*/
+    @AfterMethod
+    public void tearDown(){
+        if (driver != null) {
+            driver.quit();
+        }
     }
-
     public static class StreamGobbler implements Runnable {
         private InputStream inputStream;
         private Consumer<String> consumer;
