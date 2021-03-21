@@ -9,14 +9,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
-import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
-import pageObjects.applicationPages.LoginPage;
+import pageObjects.automationPracticePageObjects.LoginPage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,9 +28,7 @@ import java.util.function.Consumer;
 import java.util.logging.Level;
 
 public abstract class BaseTest {
-
     final Map<String, Object> chromePrefs = new HashMap<>();
-
     public final static Logger logger = LogManager.getLogger();
     // Sign In Link
     By signInLink = By.xpath("//a[normalize-space()='Sign in']");
@@ -168,6 +165,3 @@ public abstract class BaseTest {
     }
 
 }
-
-
-

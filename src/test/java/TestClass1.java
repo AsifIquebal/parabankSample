@@ -1,9 +1,9 @@
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageObjects.applicationPages.AccountServices;
-import pageObjects.applicationPages.LoginPage;
-import pageObjects.applicationPages.RegisterPage;
+import pageObjects.automationPracticePageObjects.AccountServices;
+import pageObjects.automationPracticePageObjects.LoginPage;
+import pageObjects.automationPracticePageObjects.RegisterPage;
 import pageObjects.base.BaseTest;
 import utility.MyUtils;
 
@@ -26,18 +26,18 @@ public class TestClass1 extends BaseTest {
                 .enterUserName(MyUtils.getPropertiesFile().getProperty("username"))
                 .enterPassword(MyUtils.getPropertiesFile().getProperty("password"));
         accountServices = loginPage.clickOnSignInButton();
-        Assert.assertEquals(accountServices.getPageTitle(), "ParaBank | AccountServices Overview");
+        Assert.assertEquals(accountServices.getPageTitle(), "ParaBank | Accounts Overview");
     }
 
     @Test
-    public void checkAndCreateUser() throws InterruptedException {
+    public void checkAndCreateUser() {
         accountServices = loginPage.enterUserName("aut556").enterPassword("aut556").clickOnSignInButton();
         String pageTitle = accountServices.getPageTitle();
         List<String> accounts = new ArrayList<>();
-        if(pageTitle.equalsIgnoreCase("ParaBank | Accounts Overview")){
+        if (pageTitle.equalsIgnoreCase("ParaBank | Accounts Overview")) {
             logger.info("User login successful");
             accounts = accountServices.getAllAccounts();
-        }else if (pageTitle.equalsIgnoreCase("ParaBank | Error")){
+        } else if (pageTitle.equalsIgnoreCase("ParaBank | Error")) {
             loginPage.clickOnRegisterLink().registerUser();
             LaunchApplication();
             accounts = loginPage
@@ -46,7 +46,7 @@ public class TestClass1 extends BaseTest {
                     .clickOnSignInButton().getAllAccounts();
         }
         logger.info("Accounts listed: " + accounts);
-        Assert.assertTrue(accounts.size()>0,"No Accounts found");
+        Assert.assertTrue(accounts.size() > 0, "No Accounts found");
     }
 
     @Test
@@ -57,7 +57,7 @@ public class TestClass1 extends BaseTest {
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         LoginPage loginPage = new LoginPage(driver());
         RegisterPage registerPage = loginPage.clickOnRegisterLink();
         registerPage.registerUser();
@@ -70,5 +70,3 @@ public class TestClass1 extends BaseTest {
     }*/
 
 }
-
-
