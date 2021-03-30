@@ -29,8 +29,8 @@ public class OptionsManager {
         options.addArguments("disable-infobars");
         // Start in Maximized mode
         options.addArguments("--start-maximized");
-        options.addArguments("--no-sandbox"); // Bypass OS security model
-        options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+        //options.addArguments("--no-sandbox"); // Bypass OS security model
+        //options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
         options.addArguments("allow-running-insecure-content");
         options.addArguments("enable-automation");
 

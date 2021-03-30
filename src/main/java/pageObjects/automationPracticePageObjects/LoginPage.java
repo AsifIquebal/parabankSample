@@ -57,10 +57,10 @@ public class LoginPage extends BasePage {
             t = type.getDeclaredConstructor(WebDriver.class).newInstance(driver());
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             logger.error(e.getMessage());
-        } finally {
+        } /*finally {
             return t;
-        }
-
+        }*/
+        return t;
     }
 
 

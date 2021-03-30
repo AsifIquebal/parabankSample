@@ -1,9 +1,9 @@
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageObjects.automationPracticePageObjects.AccountServices;
 import pageObjects.automationPracticePageObjects.LoginPage;
-import pageObjects.automationPracticePageObjects.RegisterPage;
 import pageObjects.base.BaseTest;
 import utility.MyUtils;
 
@@ -21,7 +21,7 @@ public class TestClass1 extends BaseTest {
     }
 
     @Test
-    public void loginTest() {
+    public void test01_loginTest() {
         loginPage
                 .enterUserName(MyUtils.getPropertiesFile().getProperty("username"))
                 .enterPassword(MyUtils.getPropertiesFile().getProperty("password"));
@@ -30,7 +30,7 @@ public class TestClass1 extends BaseTest {
     }
 
     @Test
-    public void checkAndCreateUser() {
+    public void test02_checkAndCreateUser() {
         accountServices = loginPage.enterUserName("aut556").enterPassword("aut556").clickOnSignInButton();
         String pageTitle = accountServices.getPageTitle();
         List<String> accounts = new ArrayList<>();
@@ -54,6 +54,11 @@ public class TestClass1 extends BaseTest {
         loginPage = loginPage.login("123", "123", LoginPage.class);
         System.out.println(loginPage.getInvalidLoginErrorMessage());
         accountServices = loginPage.login("aut556", "aut556", AccountServices.class);
+    }
+
+    @AfterMethod
+    public void cleanUp() {
+        tearDown();
     }
 
 }

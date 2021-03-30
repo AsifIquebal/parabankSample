@@ -11,7 +11,7 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.*;
+import org.testng.annotations.Optional;
 import pageObjects.automationPracticePageObjects.LoginPage;
 
 import java.io.BufferedReader;
@@ -33,8 +33,8 @@ public abstract class BaseTest {
     // Sign Out link
     private By signOut = By.xpath("//div/a[normalize-space()='Sign out']");
 
-    @BeforeClass
-    @Parameters("browser")
+    //@BeforeClass
+    //@Parameters("browser")
     public void launchBrowser(@Optional("chrome") String browser) throws IOException, InterruptedException {
         String OS = System.getProperty("os.name").toLowerCase();
         logger.info("Running on Platform: " + OS);
@@ -51,7 +51,7 @@ public abstract class BaseTest {
                 int exitCode = process.waitFor();
                 assert exitCode == 0;
                 System.setProperty("webdriver.chrome.driver", pathToChromeDriver);
-                System.setProperty("webdriver.chrome.silentOutput","true");
+                System.setProperty("webdriver.chrome.silentOutput", "true");
             } else {
                 logger.info("On Windows, getting Chromedriver file");
                 System.setProperty("webdriver.chrome.driver", Constants.CHROME_DRIVER_PATH_WINDOWS);
@@ -70,12 +70,12 @@ public abstract class BaseTest {
                 int exitCode = process.waitFor();
                 assert exitCode == 0;*/
                 System.setProperty("webdriver.gecko.driver", pathToGeckoDriver);
-                System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE,"false");
+                System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "false");
             } else {
                 System.setProperty("webdriver.gecko.driver", Constants.GECKO_DRIVER_PATH_WINDOWS);
             }
             driver = new FirefoxDriver(OptionsManager.getFirefoxOptions());
-        } else if(browser.equalsIgnoreCase("opera")){
+        } else if (browser.equalsIgnoreCase("opera")) {
             if (OS.equals("linux")) {
                 logger.info("On Linux, getting Opera file");
                 ProcessBuilder builder = new ProcessBuilder();
@@ -100,8 +100,7 @@ public abstract class BaseTest {
 
             WebDriver driver =browser;
             driver = new FirefoxDriver(OptionsManager.getFirefoxOptions());*/
-        }
-        else {
+        } else {
             new RuntimeException("Didn't found Driver...");
         }
     }
@@ -128,15 +127,33 @@ public abstract class BaseTest {
     }
     // Menu-Sub Menu Navigation
 
-    // all the classes which extends this class will be able to use this method
-    protected WebDriver driver() {
+    private WebDriver setUpBrowser(String browser) {
+        if (driver == null) {
+            System.out.println("DRIVER is null");
+        } else {
+            System.out.println("DRIVER is NOT null");
+        }
+        if (browser.equalsIgnoreCase("chrome")) {
+            System.setProperty("webdriver.chrome.driver", Constants.CHROME_DRIVER_PATH_WINDOWS);
+            logger.info("setting up Chromedriver");
+            driver = new ChromeDriver(OptionsManager.getChromeOptions());
+        }
         return driver;
+    }
+
+    // all the classes which extends this class will be able to use this method
+    /*protected WebDriver getDriver() {
+        return driver;
+    }*/
+
+    protected WebDriver getDriver() {
+        return setUpBrowser("chrome");
     }
 
     // Launch the Application
     public LoginPage LaunchApplication() {
-        driver().get(Constants.APP_URL);
-        return new LoginPage(driver());
+        getDriver().get(Constants.APP_URL);
+        return new LoginPage(driver);
     }
 
     /*@AfterClass
@@ -145,12 +162,17 @@ public abstract class BaseTest {
             driver.quit();
         }
     }*/
-    @AfterMethod
-    public void tearDown(){
+
+    public void tearDown() {
         if (driver != null) {
-            driver.quit();
+            try {
+                driver.quit();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
+
     public static class StreamGobbler implements Runnable {
         private InputStream inputStream;
         private Consumer<String> consumer;
