@@ -127,27 +127,21 @@ public abstract class BaseTest {
     }
     // Menu-Sub Menu Navigation
 
-    private WebDriver setUpBrowser(String browser) {
-        if (driver == null) {
-            System.out.println("DRIVER is null");
-        } else {
-            System.out.println("DRIVER is NOT null");
-        }
-        if (browser.equalsIgnoreCase("chrome")) {
-            System.setProperty("webdriver.chrome.driver", Constants.CHROME_DRIVER_PATH_WINDOWS);
-            logger.info("setting up Chromedriver");
-            driver = new ChromeDriver(OptionsManager.getChromeOptions());
-        }
-        return driver;
-    }
-
     // all the classes which extends this class will be able to use this method
     /*protected WebDriver getDriver() {
         return driver;
     }*/
 
-    protected WebDriver getDriver() {
-        return setUpBrowser("chrome");
+    public WebDriver getDriver() {
+        if (driver == null) {
+            System.out.println("DRIVER is null");
+        } else {
+            System.out.println("DRIVER is NOT null");
+        }
+        System.setProperty("webdriver.chrome.driver", Constants.CHROME_DRIVER_PATH_WINDOWS);
+        logger.info("setting up Chromedriver");
+        driver = new ChromeDriver(OptionsManager.getChromeOptions());
+        return driver;
     }
 
     // Launch the Application
@@ -167,6 +161,9 @@ public abstract class BaseTest {
         if (driver != null) {
             try {
                 driver.quit();
+                // well instead of setting driver driver to null like below its better to check for the session id
+                // ((RemoteWebDriver)driver).getSessionId() will be null after driver quits
+                driver = null;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

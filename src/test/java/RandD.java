@@ -1,18 +1,20 @@
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.Test;
 
 public class RandD {
 
     @Test
-    public void test_01(){
+    public void test_01() throws Throwable {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("http://www.google.com");
-        //((JavascriptExecutor) driver).executeScript("window.open('http://gmail.com/','_blank');");
-        driver.close();
-        driver.getTitle();
+        driver.quit();
+        System.out.println("Is driver null: " + driver.equals(null));
+        System.out.println(((RemoteWebDriver)driver).getSessionId());
+        System.out.println(driver.toString());
     }
 
 
