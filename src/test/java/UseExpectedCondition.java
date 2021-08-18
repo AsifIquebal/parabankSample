@@ -36,6 +36,7 @@ public class UseExpectedCondition extends BaseTest {
         String alertText = ExpectedConditions.alertIsPresent().apply(getDriver()).getText();
         System.out.println("Alert text is : " + alertText);
         ExpectedConditions.alertIsPresent().apply(getDriver()).accept();
+        //ExpectedConditions.numberOfElementsToBe(by, 3);
     }
 
 }

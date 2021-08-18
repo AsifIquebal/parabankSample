@@ -134,13 +134,14 @@ public abstract class BaseTest {
 
     public WebDriver getDriver() {
         if (driver == null) {
-            System.out.println("DRIVER is null");
+            //System.out.println("DRIVER is null");
+            System.setProperty("webdriver.chrome.driver", Constants.CHROME_DRIVER_PATH_WINDOWS);
+            logger.info("setting up Chromedriver");
+            driver = new ChromeDriver(OptionsManager.getChromeOptions());
         } else {
-            System.out.println("DRIVER is NOT null");
+            //System.out.println("DRIVER is NOT null");
         }
-        System.setProperty("webdriver.chrome.driver", Constants.CHROME_DRIVER_PATH_WINDOWS);
-        logger.info("setting up Chromedriver");
-        driver = new ChromeDriver(OptionsManager.getChromeOptions());
+
         return driver;
     }
 
