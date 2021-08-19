@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 import pageObjects.base.BaseTest;
@@ -37,6 +38,7 @@ public class UseExpectedCondition extends BaseTest {
         System.out.println("Alert text is : " + alertText);
         ExpectedConditions.alertIsPresent().apply(getDriver()).accept();
         //ExpectedConditions.numberOfElementsToBe(by, 3);
+
     }
 
 }
