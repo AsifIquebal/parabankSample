@@ -1,11 +1,17 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import utility.JavaScriptUtils;
+
+import java.util.Set;
 
 public class RandD {
 
@@ -16,8 +22,13 @@ public class RandD {
         //WebDriverManager.chromedriver().setup();
         WebDriverManager.chromedriver().cachePath(System.getProperty("user.dir") + "/src/test/resources/drivers").setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
+        //options.addArguments("--headless");
         driver = new ChromeDriver(options);
+    }
+
+    @AfterClass
+    public void tearDown(){
+        driver.quit();
     }
 
     @Test
@@ -60,13 +71,37 @@ public class RandD {
    and the method will block until the load is complete.'
    */
     @Test
-    public void test02() {
+    public void donotUseInGet() {
         driver.get("http://automationpractice.com/index.php");
         int counter = 0;
         while (counter < 50) {
             System.out.println(JavaScriptUtils.getDocumentReadyState(driver));
             counter++;
         }
+    }
+
+    @Test
+    public void searchForProduct() {
+        driver.get("https://www.amazon.in/");
+        driver.findElement(By.id("twotabsearchtextbox")).sendKeys("boat rock");
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-keyword='boat rockerz 255 pro+ plus']"))).click();
+        String parentWindowHandle = driver.getWindowHandle();
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@href,'/boAt-Rockerz-255-Pro-Earphones/dp/B08TTXNZ4Y')]//span[contains(@class,'a-text-normal')]"))).click();
+        Set<String> windowHandles = driver.getWindowHandles();
+        System.out.println("Windows count: " + windowHandles.size());
+        for (String handle:windowHandles
+             ) {
+            System.out.println(handle);
+            if(handle!=parentWindowHandle){
+                driver.switchTo().window(handle);
+            }
+        }
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.elementToBeClickable(By.id("add-to-cart-button"))).click();
+        new WebDriverWait(driver,5)
+                .until(ExpectedConditions.elementToBeClickable(By.id("hlb-ptc-btn-native"))).click();
     }
 
 }
