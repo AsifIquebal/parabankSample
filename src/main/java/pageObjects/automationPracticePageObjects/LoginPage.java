@@ -15,31 +15,31 @@ public class LoginPage extends BasePage {
     By signInButton = By.xpath("//input[@value='Log In']");
     By invalidLogInErrorMessage = By.xpath("//div[@id='rightPanel']/p");
     By registerLink = By.linkText("Register");
-
+    MyWrapper myWrapper = new MyWrapper();
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
     public LoginPage enterUserName(String userName) {
         logger.info("Entering username");
-        MyWrapper.sendKeys(driver(), userNameField, userName);
+        myWrapper.sendKeys(driver(), userNameField, userName);
         return this;
     }
 
     public LoginPage enterPassword(String passWord) {
         logger.info("Entering password...");
-        MyWrapper.sendKeys(driver(), passwordField, passWord);
+        myWrapper.sendKeys(driver(), passwordField, passWord);
         return this;
     }
 
     public RegisterPage clickOnRegisterLink() {
-        MyWrapper.click(driver(), registerLink);
+        myWrapper.click(driver(), registerLink);
         return new RegisterPage(driver());
     }
 
     public AccountServices clickOnSignInButton() {
         logger.info("Clicking on Sign In Button");
-        MyWrapper.click(driver(), signInButton);
+        myWrapper.click(driver(), signInButton);
         JavaScriptUtils.waitForDOMLoad(driver());
         return new AccountServices(driver());
     }

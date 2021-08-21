@@ -10,12 +10,14 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import utility.JavaScriptUtils;
+import utility.MyWrapper;
 
 import java.util.Set;
 
 public class RandD {
 
     WebDriver driver;
+    MyWrapper myWrapper;
 
     @BeforeClass
     public void setUp() {
@@ -24,10 +26,12 @@ public class RandD {
         ChromeOptions options = new ChromeOptions();
         //options.addArguments("--headless");
         driver = new ChromeDriver(options);
+
+        myWrapper = new MyWrapper();
     }
 
     @AfterClass
-    public void tearDown(){
+    public void tearDown() {
         driver.quit();
     }
 
@@ -83,25 +87,20 @@ public class RandD {
     @Test
     public void searchForProduct() {
         driver.get("https://www.amazon.in/");
-        driver.findElement(By.id("twotabsearchtextbox")).sendKeys("boat rock");
-        new WebDriverWait(driver, 5)
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-keyword='boat rockerz 255 pro+ plus']"))).click();
+        myWrapper.sendKeys(driver, By.id("twotabsearchtextbox"), "boat rock")
+                .click(driver, By.xpath("//div[@data-keyword='boat rockerz 255 pro+ plus']"));
         String parentWindowHandle = driver.getWindowHandle();
-        new WebDriverWait(driver, 5)
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@href,'/boAt-Rockerz-255-Pro-Earphones/dp/B08TTXNZ4Y')]//span[contains(@class,'a-text-normal')]"))).click();
+        myWrapper.click(driver,By.xpath("//a[contains(@href,'/boAt-Rockerz-255-Pro-Earphones/dp/B08TTXNZ4Y')]//span[contains(@class,'a-text-normal')]"));
         Set<String> windowHandles = driver.getWindowHandles();
         System.out.println("Windows count: " + windowHandles.size());
-        for (String handle:windowHandles
-             ) {
+        for (String handle : windowHandles) {
             System.out.println(handle);
-            if(handle!=parentWindowHandle){
+            if (handle != parentWindowHandle) {
                 driver.switchTo().window(handle);
             }
         }
-        new WebDriverWait(driver, 5)
-                .until(ExpectedConditions.elementToBeClickable(By.id("add-to-cart-button"))).click();
-        new WebDriverWait(driver,5)
-                .until(ExpectedConditions.elementToBeClickable(By.id("hlb-ptc-btn-native"))).click();
+        myWrapper.click(driver, By.id("add-to-cart-button"))
+                .click(driver, By.id("hlb-ptc-btn-native"));
     }
 
 }

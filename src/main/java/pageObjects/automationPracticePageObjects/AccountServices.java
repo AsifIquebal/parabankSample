@@ -16,13 +16,14 @@ public class AccountServices extends BasePage {
     private By allAccounts = By.xpath("//tr[@ng-repeat='account in accounts']/td/a");
     private By accountTable = By.xpath("//table[@id='accountTable']");
     private By totalAmount = By.xpath("//td/*[text()='Total']//../following-sibling::td/*[starts-with(text(),'$')]");
-
+    MyWrapper myWrapper;
     public AccountServices(WebDriver driver) {
         super(driver);
+        myWrapper = new MyWrapper();
     }
 
     public BillPay navigateToBillPay() {
-        MyWrapper.click(driver(), billPayLink);
+        myWrapper.click(driver(), billPayLink);
         return new BillPay(driver());
     }
 

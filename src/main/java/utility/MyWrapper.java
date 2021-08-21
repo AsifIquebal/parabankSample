@@ -18,13 +18,14 @@ import java.time.Duration;
 public class MyWrapper {
 
     private final static Logger logger = LogManager.getLogger();
-    public static void sendKeys(WebDriver driver, By by, String valueToType) {
+    public MyWrapper sendKeys(WebDriver driver, By by, String valueToType) {
         try {
             new WebDriverWait(driver, Constants.WAIT_TIME).until(ExpectedConditions.visibilityOfElementLocated(by));
             //wait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf("table")));
             JavaScriptUtils.scrollIntoView(driver.findElement(by), driver);
             driver.findElement(by).clear();
             driver.findElement(by).sendKeys(valueToType);
+            //return this;
         } catch (NoSuchElementException ex) {
             // when(ex is NoSuchElementException || ex is WebDriverTimeoutException)
             //ExtentTest test = ScenarioContext.Current.Get < ExtentTest > ();
@@ -37,9 +38,10 @@ public class MyWrapper {
             JavaScriptUtils.scrollIntoView(driver.findElement(by), driver);
             driver.findElement(by).clear();
             driver.findElement(by).sendKeys(valueToType);
+            //return this;
             //ex.printStackTrace();
         }
-
+        return this;
     }
 
     public static String getText(WebDriver driver, By by) {
@@ -59,10 +61,10 @@ public class MyWrapper {
         return text;
     }
 
-    public static void click(WebDriver driver, By by) {
+    public MyWrapper click(WebDriver driver, By by) {
         try {
             new WebDriverWait(driver, Constants.WAIT_TIME).until(ExpectedConditions.visibilityOfElementLocated(by));
-            JavaScriptUtils.scrollIntoView(driver.findElement(by), driver);
+            //JavaScriptUtils.scrollIntoView(driver.findElement(by), driver);
             driver.findElement(by).click();
             JavaScriptUtils.waitForDOMLoad(driver);
         } catch (NoSuchElementException ex) {
@@ -74,6 +76,7 @@ public class MyWrapper {
             driver.findElement(by).click();
             JavaScriptUtils.waitForDOMLoad(driver);
         }
+        return this;
     }
 
     public static WebElement waitUntilElementExists(WebDriver driver, final By by) {
