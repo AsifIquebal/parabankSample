@@ -55,6 +55,12 @@ public class JavaScriptUtils {
         return title;
     }
 
+    public static String getWindowName(WebDriver driver) {
+        JavascriptExecutor js = ((JavascriptExecutor) driver);
+        String windowName = js.executeScript("return window.name").toString();
+        return windowName;
+    }
+
     public static String getPageInnerText(WebDriver driver) {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
         String pageText = js.executeScript("return document.documentElement.innerText;").toString();

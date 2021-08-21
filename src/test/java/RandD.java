@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -101,6 +102,8 @@ public class RandD {
         }
         myWrapper.click(driver, By.id("add-to-cart-button"))
                 .click(driver, By.id("hlb-ptc-btn-native"));
+        Assert.assertTrue(driver.getTitle().contains("Amazon Sign In"));
+        //ExpectedConditions.visibilityOfElementLocated(By.id("ap_email")).apply(driver);
     }
 
 }
