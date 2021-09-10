@@ -16,8 +16,6 @@ public class RandD_Docker {
         Connect to browser based VNC through localhost:7900
         docker run -d -p 4444:4444 -p 7900:7900 --shm-size 2g selenium/standalone-chrome:91.0
 
-
-
     */
     WebDriver driver;
     @Test
@@ -32,7 +30,7 @@ public class RandD_Docker {
             driver.findElement(By.name("q")).sendKeys("Selenium Docker", Keys.ENTER);
             By firstResult = By.cssSelector("h3");
             new WebDriverWait(driver, Constants.WAIT_TIME).until(ExpectedConditions.visibilityOfElementLocated(firstResult));
-            Thread.sleep(10000);
+            //Thread.sleep(10000);
             System.out.println(driver.findElement(firstResult).getText());
             System.out.println("Running " + options.getBrowserName() + ", version: " + options.getVersion() + ",  on " + options.getPlatform());
 
@@ -45,8 +43,27 @@ public class RandD_Docker {
     }
 
     @Test
-    public void accessDocker(){
+    public void test02_kubernetes(){
+        try{
+            ChromeOptions options = new ChromeOptions();
+            //URL remote_ChromeURL = new URL("http://172.30.219.210:30061/wd/hub");
+            URL remote_ChromeURL = new URL("http://my-selenium-grid.com/wd/hub");
+            driver = new RemoteWebDriver(remote_ChromeURL, options);
+            //driver.get("http://localhost:4444/wd/hub");
+            driver.get("https://www.google.com");
+            System.out.println(driver.getTitle());
+            driver.findElement(By.name("q")).sendKeys("Selenium Docker", Keys.ENTER);
+            By firstResult = By.cssSelector("h3");
+            new WebDriverWait(driver, Constants.WAIT_TIME).until(ExpectedConditions.visibilityOfElementLocated(firstResult));
+            //Thread.sleep(10000);
+            System.out.println(driver.findElement(firstResult).getText());
+            System.out.println("Running " + options.getBrowserName() + ", version: " + options.getVersion() + ",  on " + options.getPlatform());
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            driver.quit();
+        }
     }
 
 

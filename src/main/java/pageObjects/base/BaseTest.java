@@ -125,8 +125,6 @@ public abstract class BaseTest {
 
         return caps;
     }
-    // Menu-Sub Menu Navigation
-
     // all the classes which extends this class will be able to use this method
     /*protected WebDriver getDriver() {
         return driver;
@@ -145,7 +143,6 @@ public abstract class BaseTest {
         return driver;
     }
 
-    // Launch the Application
     public LoginPage LaunchApplication() {
         getDriver().get(Constants.APP_URL);
         return new LoginPage(driver);
