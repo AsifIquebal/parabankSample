@@ -105,26 +105,6 @@ public abstract class BaseTest {
         }
     }
 
-
-    private static DesiredCapabilities getPerformanceLoggingCapabilities() {
-        DesiredCapabilities caps = DesiredCapabilities.chrome();
-
-        // Enable performance logging
-        LoggingPreferences logPrefs = new LoggingPreferences();
-        logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
-        caps.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
-
-        // Enable timeline tracing
-        Map<String, Object> chromeOptions = new HashMap<String, Object>();
-        Map<String, String> perfLoggingPrefs = new HashMap<String, String>();
-        // Tracing categories, please note NO SPACE NEEDED after the commas
-        perfLoggingPrefs.put("traceCategories", "blink.console,disabled-by-default-devtools.timeline");
-        chromeOptions.put("perfLoggingPrefs", perfLoggingPrefs);
-        //chromeOptions.put("debuggerAddress", "127.0.0.1:10134");
-        caps.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-
-        return caps;
-    }
     // all the classes which extends this class will be able to use this method
     /*protected WebDriver getDriver() {
         return driver;
@@ -159,7 +139,7 @@ public abstract class BaseTest {
         if (driver != null) {
             try {
                 driver.quit();
-                // well instead of setting driver driver to null like below its better to check for the session id
+                // well instead of setting driver to null like below its better to check for the session id
                 // ((RemoteWebDriver)driver).getSessionId() will be null after driver quits
                 driver = null;
             } catch (Exception e) {

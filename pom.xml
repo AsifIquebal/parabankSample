@@ -10,8 +10,8 @@
 
     <!--IF USING PARENT THEN COMMENT THE PROPERTIES SECTION-->
     <properties>
-        <selenium.version>3.141.59</selenium.version>
-        <testng.version>6.14.3</testng.version>
+        <selenium.version>4.0.0</selenium.version>
+        <testng.version>7.4.0</testng.version>
         <log4j.version>2.10.0</log4j.version>
     </properties>
 
