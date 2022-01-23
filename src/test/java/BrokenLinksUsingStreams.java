@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BroeknLinksUsingStreams {
+public class BrokenLinksUsingStreams {
     private WebDriver driver;
     private int invalidLinksCount;
 
@@ -57,7 +57,7 @@ public class BroeknLinksUsingStreams {
             if (httpURLConnect.getResponseCode() != 200) {
                 invalidLinksCount++;
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 }
