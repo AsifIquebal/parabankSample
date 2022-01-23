@@ -15,7 +15,10 @@ public class LoginPage extends BasePage {
     By signInButton = By.xpath("//input[@value='Log In']");
     By invalidLogInErrorMessage = By.xpath("//div[@id='rightPanel']/p");
     By registerLink = By.linkText("Register");
+    By logOutButton = By.xpath("//a[text()='Log Out']");
+
     MyWrapper myWrapper = new MyWrapper();
+
     public LoginPage(WebDriver driver) {
         super(driver);
     }
@@ -44,10 +47,15 @@ public class LoginPage extends BasePage {
         return new AccountServices(driver());
     }
 
+    public void clickOnLogOut() {
+        myWrapper.click(driver(), logOutButton);
+    }
+
     public String getInvalidLoginErrorMessage() {
         return MyWrapper.getText(driver(), invalidLogInErrorMessage);
     }
 
+    // use of Generic return type
     public <T extends BasePage> T login(String username, String password, Class<T> type) {
         enterUserName(username).enterPassword(password).clickOnSignInButton();
         logger.info("Page Title: " + getPageTitle());

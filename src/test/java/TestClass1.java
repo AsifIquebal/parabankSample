@@ -38,6 +38,7 @@ public class TestClass1 extends BaseTest {
             logger.info("User login successful");
             accounts = accountServices.getAllAccounts();
         } else if (pageTitle.equalsIgnoreCase("ParaBank | Error")) {
+            loginPage.clickOnLogOut();
             loginPage.clickOnRegisterLink().registerUser();
             LaunchApplication();
             accounts = loginPage
@@ -50,10 +51,12 @@ public class TestClass1 extends BaseTest {
     }
 
     @Test
-    public void testABCase() {
-        loginPage = loginPage.login("123", "123", LoginPage.class);
+    public void testABCase_GenericReturnType() {
+        loginPage = loginPage.login("incorrect", "0101", LoginPage.class);
         System.out.println(loginPage.getInvalidLoginErrorMessage());
+        loginPage.clickOnLogOut();
         accountServices = loginPage.login("aut556", "aut556", AccountServices.class);
+
     }
 
     @AfterMethod

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--In practise you would probably use a configuration status level of INFO or ERROR,
+<!--In practise, you would probably use a configuration status level of INFO or ERROR,
  but while setting up a configuration it may be useful to set this to DEBUG.-->
-<Configuration status="INFO">
+<Configuration status="ERROR">
 
     <Appenders>
 
@@ -16,7 +16,7 @@
     </Appenders>
 
     <Loggers>
-        <Root level="TRACE">
+        <Root level="INFO">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="log4j2LogFile"/>
         </Root>
