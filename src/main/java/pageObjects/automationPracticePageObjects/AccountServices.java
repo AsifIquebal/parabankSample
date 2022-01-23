@@ -12,11 +12,11 @@ import java.util.List;
 
 public class AccountServices extends BasePage {
 
-    private By billPayLink = By.linkText("Bill Pay");
-    private By allAccounts = By.xpath("//tr[@ng-repeat='account in accounts']/td/a");
-    private By accountTable = By.xpath("//table[@id='accountTable']");
-    private By totalAmount = By.xpath("//td/*[text()='Total']//../following-sibling::td/*[starts-with(text(),'$')]");
-    MyWrapper myWrapper;
+    private final By billPayLink = By.linkText("Bill Pay");
+    private final By allAccounts = By.xpath("//tr[@ng-repeat='account in accounts']/td/a");
+    private final By accountTable = By.xpath("//table[@id='accountTable']");
+    private final By totalAmount = By.xpath("//td/*[text()='Total']//../following-sibling::td/*[starts-with(text(),'$')]");
+
     public AccountServices(WebDriver driver) {
         super(driver);
         myWrapper = new MyWrapper();

@@ -1,5 +1,6 @@
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageObjects.automationPracticePageObjects.AccountServices;
@@ -15,23 +16,22 @@ public class TestClass1 extends BaseTest {
     LoginPage loginPage;
     AccountServices accountServices;
 
+    @BeforeClass
+    public void cleanUpUsersByResettingDB(){
+        clearDataBase();
+    }
+
     @BeforeMethod
     public void setUp() {
-        loginPage = LaunchApplication();
+        loginPage = launchApplication();
     }
 
     @Test
-    public void test01_loginTest() {
-        loginPage
-                .enterUserName(MyUtils.getPropertiesFile().getProperty("username"))
-                .enterPassword(MyUtils.getPropertiesFile().getProperty("password"));
-        accountServices = loginPage.clickOnSignInButton();
-        Assert.assertEquals(accountServices.getPageTitle(), "ParaBank | Accounts Overview");
-    }
-
-    @Test
-    public void test02_checkAndCreateUser() {
-        accountServices = loginPage.enterUserName("aut556").enterPassword("aut556").clickOnSignInButton();
+    public void test01_checkAndCreateUser() {
+        //
+        //accountServices = loginPage.enterUserName("aut556").enterPassword("aut556").clickOnSignInButton();
+        // using generic type is useful
+        accountServices = loginPage.login("aut556","aut556", AccountServices.class);
         String pageTitle = accountServices.getPageTitle();
         List<String> accounts = new ArrayList<>();
         if (pageTitle.equalsIgnoreCase("ParaBank | Accounts Overview")) {
@@ -40,7 +40,7 @@ public class TestClass1 extends BaseTest {
         } else if (pageTitle.equalsIgnoreCase("ParaBank | Error")) {
             loginPage.clickOnLogOut();
             loginPage.clickOnRegisterLink().registerUser();
-            LaunchApplication();
+            launchApplication();
             accounts = loginPage
                     .enterUserName(MyUtils.getPropertiesFile().getProperty("username"))
                     .enterPassword(MyUtils.getPropertiesFile().getProperty("password"))
@@ -48,6 +48,15 @@ public class TestClass1 extends BaseTest {
         }
         logger.info("Accounts listed: " + accounts);
         Assert.assertTrue(accounts.size() > 0, "No Accounts found");
+    }
+
+    @Test
+    public void test02_loginTest() {
+        loginPage
+                .enterUserName(MyUtils.getPropertiesFile().getProperty("username"))
+                .enterPassword(MyUtils.getPropertiesFile().getProperty("password"));
+        accountServices = loginPage.clickOnSignInButton();
+        Assert.assertEquals(accountServices.getPageTitle(), "ParaBank | Accounts Overview");
     }
 
     @Test

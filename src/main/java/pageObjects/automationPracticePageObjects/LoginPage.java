@@ -1,5 +1,6 @@
 package pageObjects.automationPracticePageObjects;
 
+import lombok.SneakyThrows;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pageObjects.base.BasePage;
@@ -15,9 +16,8 @@ public class LoginPage extends BasePage {
     By signInButton = By.xpath("//input[@value='Log In']");
     By invalidLogInErrorMessage = By.xpath("//div[@id='rightPanel']/p");
     By registerLink = By.linkText("Register");
+    By adminPageLink = By.xpath("//a[text()='Admin Page']");
     By logOutButton = By.xpath("//a[text()='Log Out']");
-
-    MyWrapper myWrapper = new MyWrapper();
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -51,6 +51,12 @@ public class LoginPage extends BasePage {
         myWrapper.click(driver(), logOutButton);
     }
 
+    @SneakyThrows
+    public <T extends BasePage> T clickOnAdminPageLink(Class<T> tClass){
+        myWrapper.click(driver(),adminPageLink);
+        return tClass.getDeclaredConstructor(WebDriver.class).newInstance(driver());
+    }
+
     public String getInvalidLoginErrorMessage() {
         return MyWrapper.getText(driver(), invalidLogInErrorMessage);
     }
@@ -70,6 +76,5 @@ public class LoginPage extends BasePage {
         }*/
         return t;
     }
-
 
 }

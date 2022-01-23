@@ -4,12 +4,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import pageObjects.automationPracticePageObjects.AdminPage;
+import utility.MyWrapper;
 
 public abstract class BasePage {
 
     public final static Logger logger = LogManager.getLogger();
 
-    private WebDriver driver;
+    private final WebDriver driver;
+
+    public MyWrapper myWrapper = new MyWrapper();
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -35,6 +39,7 @@ public abstract class BasePage {
     }
 
     public By logOutLink = By.linkText("Log Out");
+
+
+
 }
-
-

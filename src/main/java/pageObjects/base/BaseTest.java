@@ -5,13 +5,9 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.logging.LoggingPreferences;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.Optional;
+import pageObjects.automationPracticePageObjects.AdminPage;
 import pageObjects.automationPracticePageObjects.LoginPage;
 
 import java.io.BufferedReader;
@@ -22,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
-import java.util.logging.Level;
 
 public abstract class BaseTest {
     final Map<String, Object> chromePrefs = new HashMap<>();
@@ -31,7 +26,7 @@ public abstract class BaseTest {
     By signInLink = By.xpath("//a[normalize-space()='Sign in']");
     private WebDriver driver;
     // Sign Out link
-    private By signOut = By.xpath("//div/a[normalize-space()='Sign out']");
+    private final By signOut = By.xpath("//div/a[normalize-space()='Sign out']");
 
     //@BeforeClass
     //@Parameters("browser")
@@ -123,7 +118,7 @@ public abstract class BaseTest {
         return driver;
     }
 
-    public LoginPage LaunchApplication() {
+    public LoginPage launchApplication() {
         getDriver().get(Constants.APP_URL);
         return new LoginPage(driver);
     }
@@ -149,8 +144,8 @@ public abstract class BaseTest {
     }
 
     public static class StreamGobbler implements Runnable {
-        private InputStream inputStream;
-        private Consumer<String> consumer;
+        private final InputStream inputStream;
+        private final Consumer<String> consumer;
 
         public StreamGobbler(InputStream inputStream, Consumer<String> consumer) {
             this.inputStream = inputStream;
@@ -161,6 +156,10 @@ public abstract class BaseTest {
         public void run() {
             new BufferedReader(new InputStreamReader(inputStream)).lines().forEach(consumer);
         }
+    }
+
+    public void clearDataBase() {
+        launchApplication().clickOnAdminPageLink(AdminPage.class).clickOnCleanButton();
     }
 
 }
