@@ -1,4 +1,4 @@
-package pageObjects.base;
+package base;
 
 public class Constants {
 

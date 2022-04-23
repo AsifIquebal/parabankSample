@@ -1,7 +1,7 @@
-package pageObjects.automationPracticePageObjects;
+package pageObjects;
 
 import org.openqa.selenium.WebDriver;
-import pageObjects.base.BasePage;
+import base.BasePage;
 
 public class BillPay extends BasePage {
 

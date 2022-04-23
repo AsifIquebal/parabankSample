@@ -1,4 +1,4 @@
-package pageObjects.base;
+package base;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,8 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Optional;
-import pageObjects.automationPracticePageObjects.AdminPage;
-import pageObjects.automationPracticePageObjects.LoginPage;
+import pageObjects.AdminPage;
+import pageObjects.LoginPage;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,10 +1,9 @@
-package pageObjects.base;
+package base;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import pageObjects.automationPracticePageObjects.AdminPage;
 import utility.MyWrapper;
 
 public abstract class BasePage {

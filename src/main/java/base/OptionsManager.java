@@ -1,4 +1,4 @@
-package pageObjects.base;
+package base;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.PageLoadStrategy;

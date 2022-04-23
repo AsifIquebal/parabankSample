@@ -1,8 +1,8 @@
-package pageObjects.automationPracticePageObjects;
+package pageObjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import pageObjects.base.BasePage;
+import base.BasePage;
 import utility.MyUtils;
 
 public class RegisterPage extends BasePage {

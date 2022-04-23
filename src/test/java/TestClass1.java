@@ -3,9 +3,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageObjects.automationPracticePageObjects.AccountServices;
-import pageObjects.automationPracticePageObjects.LoginPage;
-import pageObjects.base.BaseTest;
+import pageObjects.AccountServices;
+import pageObjects.LoginPage;
+import base.BaseTest;
 import utility.MyUtils;
 
 import java.util.ArrayList;
@@ -38,8 +38,8 @@ public class TestClass1 extends BaseTest {
             logger.info("User login successful");
             accounts = accountServices.getAllAccounts();
         } else if (pageTitle.equalsIgnoreCase("ParaBank | Error")) {
-            loginPage.clickOnLogOut();
             loginPage.clickOnRegisterLink().registerUser();
+            loginPage.clickOnLogOut();
             launchApplication();
             accounts = loginPage
                     .enterUserName(MyUtils.getPropertiesFile().getProperty("username"))

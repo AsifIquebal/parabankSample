@@ -1,9 +1,9 @@
-package pageObjects.automationPracticePageObjects;
+package pageObjects;
 
 import lombok.SneakyThrows;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import pageObjects.base.BasePage;
+import base.BasePage;
 import utility.JavaScriptUtils;
 import utility.MyWrapper;
 
