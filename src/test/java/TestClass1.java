@@ -1,11 +1,10 @@
+import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageObjects.AccountServices;
 import pageObjects.LoginPage;
-import base.BaseTest;
 import utility.MyUtils;
 
 import java.util.ArrayList;
@@ -16,8 +15,8 @@ public class TestClass1 extends BaseTest {
     LoginPage loginPage;
     AccountServices accountServices;
 
-    @BeforeClass
-    public void cleanUpUsersByResettingDB(){
+    //@BeforeClass
+    public void cleanUpUsersByResettingDB() {
         clearDataBase();
     }
 
@@ -28,10 +27,7 @@ public class TestClass1 extends BaseTest {
 
     @Test
     public void test01_checkAndCreateUser() {
-        //
-        //accountServices = loginPage.enterUserName("aut556").enterPassword("aut556").clickOnSignInButton();
-        // using generic type is useful
-        accountServices = loginPage.login("aut556","aut556", AccountServices.class);
+        accountServices = loginPage.login("aut556", "aut556", AccountServices.class);
         String pageTitle = accountServices.getPageTitle();
         List<String> accounts = new ArrayList<>();
         if (pageTitle.equalsIgnoreCase("ParaBank | Accounts Overview")) {
@@ -65,12 +61,11 @@ public class TestClass1 extends BaseTest {
         System.out.println(loginPage.getInvalidLoginErrorMessage());
         loginPage.clickOnLogOut();
         accountServices = loginPage.login("aut556", "aut556", AccountServices.class);
-
     }
 
-    @AfterMethod
+    /*@AfterMethod
     public void cleanUp() {
         tearDown();
-    }
+    }*/
 
 }

@@ -62,8 +62,8 @@ public class MyWrapper {
     }
 
     public MyWrapper click(WebDriver driver, By by) {
-        System.out.println(driver != null);
-        System.out.println(by != null);
+        //System.out.println(driver != null);
+        //System.out.println(by != null);
         try {
             new WebDriverWait(driver, Duration.ofSeconds(Constants.WAIT_TIME)).until(ExpectedConditions.visibilityOfElementLocated(by));
             //JavaScriptUtils.scrollIntoView(driver.findElement(by), driver);

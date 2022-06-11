@@ -11,17 +11,7 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 
 public class OptionsManager {
 
-    public Capabilities capabilities;
-
-    public Capabilities getCapabilities (String browser) {
-        if (browser.equalsIgnoreCase("firefox"))
-            capabilities = getFirefoxOptions();
-        else if(browser.equalsIgnoreCase("chrome"))
-            capabilities = getChromeOptions();
-        return capabilities;
-    }
-
-    public static ChromeOptions getChromeOptions(){
+    public static ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
         //options.setAcceptInsecureCerts(true);
         //options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
@@ -33,8 +23,8 @@ public class OptionsManager {
         //options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
         options.addArguments("allow-running-insecure-content");
         options.addArguments("enable-automation");
-
-        if(System.getProperty("headless").equalsIgnoreCase("yes")){
+        options.addArguments("--incognito");
+        if (System.getProperty("headless").equalsIgnoreCase("yes")) {
             options.addArguments("--headless");
         }
         //options.addArguments("--headless");
@@ -55,7 +45,7 @@ public class OptionsManager {
         return options;
     }
 
-    public static FirefoxOptions getFirefoxOptions () {
+    public static FirefoxOptions getFirefoxOptions() {
         FirefoxOptions options = new FirefoxOptions();
         FirefoxProfile profile = new FirefoxProfile();
         options.setLogLevel(FirefoxDriverLogLevel.ERROR);
@@ -65,7 +55,7 @@ public class OptionsManager {
         //Use No Proxy Settings
         profile.setPreference("network.proxy.type", 0);
         //Set Firefox profile to capabilities
-        options.setCapability(FirefoxDriver.PROFILE, profile);
+        options.setCapability(FirefoxDriver.Capability.MARIONETTE, profile);
         return options;
     }
 

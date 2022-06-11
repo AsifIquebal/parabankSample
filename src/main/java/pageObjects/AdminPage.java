@@ -13,7 +13,7 @@ public class AdminPage extends BasePage {
     }
 
     public void clickOnCleanButton() {
-        myWrapper.click(driver(), cleanButton);
+        myWrapper.click(driver, cleanButton);
     }
 
 }

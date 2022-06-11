@@ -45,6 +45,10 @@ public class RandD {
         System.out.println("Is driver null: " + driver.equals(null));
         System.out.println(((RemoteWebDriver) driver).getSessionId());
         System.out.println(driver.toString());
+
+
+
+        driver.navigate().refresh();
     }
 
 

@@ -8,37 +8,24 @@ import utility.MyWrapper;
 
 public abstract class BasePage {
 
-    public final static Logger logger = LogManager.getLogger();
-
-    private final WebDriver driver;
-
-    public MyWrapper myWrapper = new MyWrapper();
-
     public BasePage(WebDriver driver) {
         this.driver = driver;
     }
 
-    protected WebDriver driver() {
-        return driver;
-    }
+    public final static Logger logger = LogManager.getLogger();
 
-    // Get Page Title
+    public WebDriver driver;
+
+    public MyWrapper myWrapper = new MyWrapper();
+
     public String getPageTitle() {
         return driver.getTitle();
     }
 
-    // Get Page URL
     public String getURL() {
-        return driver().getCurrentUrl();
-    }
-
-    // wait for DOM Load
-    public void waitForDomLoad(WebDriver driver){
-
+        return driver.getCurrentUrl();
     }
 
     public By logOutLink = By.linkText("Log Out");
-
-
 
 }
