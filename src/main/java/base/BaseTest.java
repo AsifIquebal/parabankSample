@@ -9,6 +9,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import pageObjects.AccountServices;
 import pageObjects.AdminPage;
@@ -23,7 +25,7 @@ public abstract class BaseTest {
     public AccountServices accountServices;
     public BillPay billPayPage;
 
-    ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
+    ThreadLocal<WebDriver> webDriverThreadLocal = new ThreadLocal<>();
     public final static Logger logger = LogManager.getLogger();
     // Sign In Link
     By signInLink = By.xpath("//a[normalize-space()='Sign in']");
@@ -31,6 +33,13 @@ public abstract class BaseTest {
     // Sign Out link
     private final By signOut = By.xpath("//div/a[normalize-space()='Sign out']");
     private final By logOutlink = By.xpath("//a[text()='Log Out']");
+
+    @BeforeMethod
+    public void setDriver() {
+        WebDriverManager.chromedriver().setup();
+        webDriverThreadLocal.set(new ChromeDriver());
+    }
+
     //@BeforeClass
     //@Parameters("browser")
     public void launchBrowser(@Optional("chrome") String browser) throws IOException, InterruptedException {
@@ -90,18 +99,8 @@ public abstract class BaseTest {
         }
     }
 
-    protected WebDriver getDriver() {
-        if (driver == null) {
-            WebDriverManager.chromedriver().cachePath(System.getProperty("user.dir") + "/src/test/resources/drivers").setup();
-            ChromeOptions options = new ChromeOptions();
-            driver = new ChromeDriver(options);
-            driverThreadLocal.set(driver);
-            //driver.manage().window().maximize();
-            logger.info("setting up Chromedriver");
-        } else {
-            //logger.info("DRIVER is NOT null");
-        }
-        return driverThreadLocal.get();
+    public WebDriver getDriver() {
+        return webDriverThreadLocal.get();
     }
 
     public LoginPage launchApplication() {
@@ -113,10 +112,10 @@ public abstract class BaseTest {
         getDriver().findElement(logOutlink).click();
     }
 
-    @AfterClass
+    @AfterMethod
     public void tearDown() {
         getDriver().quit();
-        driverThreadLocal.remove();
+        webDriverThreadLocal.remove();
     }
 
     public void clearDataBase() {
