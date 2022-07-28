@@ -2,12 +2,15 @@ import base.BaseTest;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import listeners.TestAllureListener;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjects.AccountServices;
 import pageObjects.LoginPage;
 
+@Listeners(TestAllureListener.class)
 @Feature("Bill Payment Test Cases")
 public class TestClass3 extends BaseTest {
 

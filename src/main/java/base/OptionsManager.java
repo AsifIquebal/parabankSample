@@ -24,6 +24,7 @@ public class OptionsManager {
         options.addArguments("allow-running-insecure-content");
         options.addArguments("enable-automation");
         options.addArguments("--incognito");
+        // get the property value from the pom file
         if (System.getProperty("headless").equalsIgnoreCase("yes")) {
             options.addArguments("--headless");
         }
