@@ -14,6 +14,12 @@ import pageObjects.LoginPage;
 @Feature("Bill Payment Test Cases")
 public class TestClass3 extends BaseTest {
 
+
+    @Test
+    public void gitTest(){
+        System.out.printf("Hello");
+    }
+
     @BeforeMethod
     public void setUp() {
         getDriver().get("https://parabank.parasoft.com");

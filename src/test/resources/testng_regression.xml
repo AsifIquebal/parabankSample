@@ -13,7 +13,7 @@
 		<!--<parameter name="browser" value="chrome" />
 		<parameter name="browserversion" value="89.0" />-->
 		<classes>
-			<class name="TestClass3" />
+			<class name="TestClass1" />
 		</classes>
 	</test>
 

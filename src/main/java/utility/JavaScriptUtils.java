@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class JavaScriptUtils {
 
     public static void flash(WebElement element, WebDriver driver) {
@@ -83,7 +85,7 @@ public class JavaScriptUtils {
     }
 
     public static void waitForDOMLoad(WebDriver driver) {
-        new WebDriverWait(driver, 100).until(wd ->((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
+        new WebDriverWait(driver, Duration.ZERO).until(wd ->((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
     }
 
     public static String getDocumentReadyState(WebDriver driver){
