@@ -50,11 +50,11 @@ public class BrokenLinksUsingStreams {
     public void verifyURLStatus(String linkUrl) {
         try {
             URL url = new URL(linkUrl);
-            HttpURLConnection httpURLConnect = (HttpURLConnection) url.openConnection();
-            httpURLConnect.setConnectTimeout(3000);
-            httpURLConnect.connect();
-            System.out.println(linkUrl + "->" + httpURLConnect.getResponseMessage());
-            if (httpURLConnect.getResponseCode() != 200) {
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setConnectTimeout(3000);
+            httpURLConnection.connect();
+            System.out.println(linkUrl + "->" + httpURLConnection.getResponseMessage());
+            if (httpURLConnection.getResponseCode() != 200) {
                 invalidLinksCount++;
             }
         } catch (Exception ignored) {
